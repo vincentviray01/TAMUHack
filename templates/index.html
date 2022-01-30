@@ -1,0 +1,62 @@
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<body style="background-color:#99ccff;">
+    <div style="background-color: ffcc99;">
+        <div class="topbackground" align="center" style="background-color: ffff66;">
+            <div class="container-fluid center" align="center">
+                <div class="text-center" align="center" style="margin-bottom: 50;" >
+                    <br>
+                    <h1 style="font-size:50;" align="center"><b>Lecture Helper</b></h1>
+                    <h3>Ask Me Anything!</h3>
+                    <br>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        {% if videoOrTranscriptIsNotMissing is false %} <p align="center"><h3 align="center">Lecture Recording MP4 Video or Transcript Text File is missing! Please upload both files before asking questions!</h3></p>{% else %}<p align = "center"><h3 align="center">Upload a Lecture Recording MP4 Video and Recording Transcript Text File!</h3></p>{% endif %}
+
+        <div align="center">
+            <div class="container" align="center">
+                <form align="center" method="POST" action="{{ url_for('upload')}}" id="query">
+                    <textarea class="form-control" placeholder="Ask your question here!" 
+                        rows="2" cols="40" name="query" style="margin-bottom: 10;"></textarea>
+                    <textarea class="form-control" placeholder="Put the keyword of your question here! (For if you want to find an answer from a wikipedia page using a provided key word)" 
+                        rows="2" cols="40" name="key" style="margin-bottom: 10;"></textarea>
+                    <input type="submit" onclick="myAnalyzer()" value="Submit" class="btn btn-primary">
+                    <a href="{{url_for('index')}}" type="button" class="btn btn-danger">Reset</a>
+                </form>
+            </div>
+        </div>
+
+
+    
+
+        
+
+    
+    <form enctype = "multipart/form-data" action = "{{url_for('upload_files')}}" id="file" multiple method = "post">
+        <div align="center" class="container-fluid">
+        <!--<p>Upload File: <input type = "file" name = "file" /></p> -->
+            <p class="mb-3">
+                <label><b>Video MP4 File (Last Video Uploaded: {% if video_file_name is defined %} {{video_file_name}} {% else %}None{% endif %})</b></label>
+                <br>
+                <input type="file" name="file" value = "Video MP4 File" style="align-content:center">
+            </p>
+            <p class="mb-3">
+                <label><b>Transcript File (Last Transcript Uploaded: {% if transcript_file_name is defined %} {{transcript_file_name}} {% else %}None{% endif %})</b></label>
+                <br>
+                <input type="file" name="file2" value = "Transcript File">
+            </p>
+            <p><input type = "submit" value = "Upload" style="margin-right:235px"/></p>
+        </div>  
+    </form>
+    <br>
+</div>
+
+</body>
+</html>
